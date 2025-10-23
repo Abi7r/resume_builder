@@ -1,0 +1,93 @@
+body {
+  overflow-x: hidden;
+}
+
+#bg1 {
+  background-image: url("https://www.shutterstock.com/image-photo/two-happy-busy-middle-aged-600nw-2479065515.jpg");
+  background-size: cover;
+  background-position: top;
+  background-attachment: fixed;
+  width: 100%;
+  height: 450 px;
+}
+/* .box {
+  background-color: rgb(14, 104, 230);
+} */
+@media (min-width: 768px) {
+  #bg1 .box {
+    padding: 3rem 2rem !important;
+  }
+
+  #bg1 h3 {
+    font-size: 1.75rem;
+  }
+
+  #bg1 h4 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Small mobile devices (max-width: 576px) */
+@media (max-width: 576px) {
+  #bg1 {
+    padding: 1rem !important;
+  }
+
+  #bg1 .box {
+    margin-top: 2rem !important;
+    padding: 2rem 1rem !important;
+    width: 95% !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #bg1 h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  #bg1 h4 {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Tools section */
+  section.p-5 {
+    padding: 2rem 1rem !important;
+  }
+
+  section.p-5 h3 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  section.p-5 .col-12 {
+    padding: 1.5rem 1rem !important;
+  }
+
+  section.p-5 h4 {
+    font-size: 1.25rem;
+    margin-top: 1rem;
+  }
+
+  section.p-5 p {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Image responsiveness */
+  section.p-5 img {
+    width: 100% !important;
+    max-width: 400px;
+    margin: 2rem auto;
+    display: block;
+  }
+
+  /* Button styling for mobile */
+  #bg1 button {
+    width: 100%;
+    max-width: 280px;
+    font-size: 0.95rem;
+    padding: 0.75rem 1.5rem;
+  }
+}
