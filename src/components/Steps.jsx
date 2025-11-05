@@ -9,8 +9,10 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import { RxCross2 } from "react-icons/rx";
+import { addResume } from "../services/allApi";
+import swal from "sweetalert";
 
-function Steps({ userInput, setUserInput }) {
+function Steps({ userInput, setUserInput, setFinish, setResumeId }) {
   const steps = [
     "Basic information",
     "Contact details",
@@ -83,6 +85,29 @@ function Steps({ userInput, setUserInput }) {
       }
     }
   };
+  const removeSkill = (skill) => {
+    setUserInput({
+      ...userInput,
+      skills: userInput.skills.filter((item) => item != skill),
+    });
+  };
+  const handleAddResume = async () => {
+    const { name, jobTitle, email, location } = userInput.personalDetails;
+    if (name && jobTitle && email && location) {
+      try {
+        const result = await addResume(userInput);
+        console.log(result);
+        swal("Good job!", "Resume created!", "success");
+        setFinish(true);
+        setResumeId(result.data.id);
+      } catch (error) {
+        console.log("Error occured in API call", error);
+        swal("Error!", "Resume creation failed!", "error");
+      }
+    } else {
+      alert("Fill not filled");
+    }
+  };
   const renderStepContent = (step) => {
     switch (step) {
       case 0:
@@ -147,6 +172,7 @@ function Steps({ userInput, setUserInput }) {
                 id="outlined-basic"
                 label="Email"
                 variant="standard"
+                value={userInput.personalDetails.email}
                 onChange={(e) =>
                   setUserInput({
                     ...userInput,
@@ -156,7 +182,6 @@ function Steps({ userInput, setUserInput }) {
                     },
                   })
                 }
-                value={userInput.personalDetails.email}
               />
               <TextField
                 id="filled-basic"
@@ -397,7 +422,10 @@ function Steps({ userInput, setUserInput }) {
                     userInput.skills.map((skills) => (
                       <span className="btn btn-primary d-flex justify-content-center align-items-center g-2">
                         {skills}
-                        <Button className="btn text-light fs-3">
+                        <Button
+                          onClick={() => removeSkill(skills)}
+                          className="btn text-light fs-3"
+                        >
                           <RxCross2 />
                         </Button>
                       </span>
@@ -417,9 +445,9 @@ function Steps({ userInput, setUserInput }) {
                 label="Write a short summary of yourself"
                 multiline
                 rows={4}
-                defaultValue={
-                  "Eg:I am an experienced full stack developer with indepth knowledge in react nodejs js...."
-                }
+                // defaultValue={
+                //   "Eg:I am an experienced full stack developer with indepth knowledge in react nodejs js...."
+                // }
                 variant="standard"
                 onChange={(e) =>
                   setUserInput({ ...userInput, summary: e.target.value })
@@ -482,9 +510,12 @@ function Steps({ userInput, setUserInput }) {
                 Skip
               </Button>
             )}
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? "Finish" : "Next"}
-            </Button>
+
+            {activeStep === steps.length - 1 ? (
+              <Button onClick={handleAddResume}>"Finish" </Button>
+            ) : (
+              <Button onClick={handleNext}> "Next"</Button>
+            )}
           </Box>
         </React.Fragment>
       )}

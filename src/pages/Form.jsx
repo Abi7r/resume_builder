@@ -29,25 +29,40 @@ function Form() {
     skills: [],
     summary: "",
   });
+  const [finish, setFinish] = useState(false);
+  const [resumeId, setResumeId] = useState("");
+
   return (
     <div>
       <div className="row p-5">
-        <div className="row">
-          {/* <div className="col-3">
+        {finish ? (
+          <div className="row">
+            <div className="col-3"></div>
             <div className="col-8">
-              <Preview />
+              <Preview
+                resumeId={resumeId}
+                userInput={userInput}
+                setUserInput={setUserInput}
+                finish={finish}
+              />
             </div>
             <div className="col-1"></div>
-          </div> */}
+          </div>
+        ) : (
           <div className="row p-5">
             <div className="col-6">
-              <Steps userInput={userInput} setUserInput={setUserInput} />
+              <Steps
+                setResumeId={setResumeId}
+                userInput={userInput}
+                setUserInput={setUserInput}
+                setFinish={setFinish}
+              />
             </div>
             <div className="col-6">
-              <Preview />
+              <Preview userInput={userInput} setUserInput={setUserInput} />
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
